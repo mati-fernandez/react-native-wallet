@@ -1,0 +1,40 @@
+# 🛠️ Backend Initialization – Step-by-Step
+1. Project Setup
+- Initialized a new Node.js project with npm init -y
+- Created the project directory structure
+2. Installed Core Dependencies
+```bash
+npm i express@4.21.0
+```
+- Used to build the RESTful API server. Specified a more reliable version for this project
+
+3. Installed Supporting Packages
+```bash
+npm i dotenv@16.5.0 cors@2.8.5 @neondatabase/serverless@1.0.0
+```
+- `dotenv`: Loads environment variables from a `.env` file
+- `cors`: Enables Cross-Origin Resource Sharing
+- `@neondatabase/serverless`: Allows connecting to a Neon-hosted Postgres database in a serverless way
+
+4. Enabled automatic loading of environment variables
+```js
+import 'dotenv/config';
+```
+- Equivalent to manually configuring dotenv with import dotenv from 'dotenv'; dotenv.config(); but cleaner
+
+# Rate Limiting Middleware
+
+In this project, we implemented a rate limiter using Upstash Redis. The current implementation uses a static string 'my-rate-limit' as the key:
+
+```js
+const { success } = await ratelimit.limit('my-rate-limit');
+```
+However, in a real-world scenario, this should be replaced with a dynamic identifier such as the user's ID or IP address. This ensures the rate limiter applies restrictions per user rather than globally for all users.
+
+Example of a production-ready key:
+
+```js
+const key = req.user?.id || req.ip;
+const { success } = await ratelimit.limit(key);
+```
+This approach prevents one user from affecting others and provides better protection against abuse.
