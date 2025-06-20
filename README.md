@@ -38,3 +38,16 @@ const key = req.user?.id || req.ip;
 const { success } = await ratelimit.limit(key);
 ```
 This approach prevents one user from affecting others and provides better protection against abuse.
+
+# Frontend Setup (React Native + Expo)
+
+- We initialized the mobile app using:
+`npx create-expo-app@latest .`
+
+    The . at the end means the project will be created in the current directory instead of a new one.
+
+- To start the app in development mode:
+`npm run start` or just `npx expo`
+
+- To clean up default files and start fresh, we ran:
+`npm run reset-project`

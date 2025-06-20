@@ -1,9 +1,6 @@
-import express from 'express';
 import { sql } from '../config/db.js';
 
-const router = express.Router();
-
-router.get('/:userId', async (req, res) => {
+export async function getTransactionsByUserId(req, res) {
   try {
     const { userId } = req.params;
 
@@ -15,9 +12,9 @@ router.get('/:userId', async (req, res) => {
     console.log('Error getting the transaction', error);
     res.status(500).json({ message: 'Internal server error' });
   }
-});
+}
 
-router.post('/', async (req, res) => {
+export async function createTransaction(req, res) {
   try {
     const { title, amount, category, user_id } = req.body;
 
@@ -37,9 +34,9 @@ router.post('/', async (req, res) => {
     console.log('Error creating the transaction', error);
     res.status(500).json({ message: 'Internal server error' });
   }
-});
+}
 
-router.delete('/:id', async (req, res) => {
+export async function deleteTransaction(req, res) {
   try {
     const { id } = req.params;
 
@@ -59,21 +56,21 @@ router.delete('/:id', async (req, res) => {
     console.log('Error deleting the transaction', error);
     res.status(500).json({ message: 'Internal server error' });
   }
-});
+}
 
-router.get('/summary/:userId', async (req, res) => {
+export async function getSummaryByUserId(req, res) {
   try {
     const { userId } = req.params;
 
     const balanceResult = await sql`
-          SELECT COALESCE(SUM(amount), 0) as balance FROM transactions WHERE user_id = ${userId}
-          `;
+            SELECT COALESCE(SUM(amount), 0) as balance FROM transactions WHERE user_id = ${userId}
+            `;
 
     const incomeResult =
       await sql`SELECT COALESCE(SUM(amount),0) as income FROM transactions WHERE user_id = ${userId} AND amount > 0`;
 
     const expensesResult = await sql`
-          SELECT COALESCE(SUM(amount),0) as expenses FROM transactions WHERE user_id = ${userId} AND amount <0`;
+            SELECT COALESCE(SUM(amount),0) as expenses FROM transactions WHERE user_id = ${userId} AND amount <0`;
 
     res.status(200).json({
       balance: balanceResult[0].balance,
@@ -81,6 +78,4 @@ router.get('/summary/:userId', async (req, res) => {
       expenses: expensesResult[0].expenses,
     });
   } catch (error) {}
-});
-
-export default router;
+}
