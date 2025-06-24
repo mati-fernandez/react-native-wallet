@@ -51,3 +51,7 @@ This approach prevents one user from affecting others and provides better protec
 
 - To clean up default files and start fresh, we ran:
 `npm run reset-project`
+
+## ✅ Authentication Setup (Clerk)
+
+Installed Clerk for Expo as instructed in their [official documentation](https://clerk.com/docs/quickstarts/expo)
