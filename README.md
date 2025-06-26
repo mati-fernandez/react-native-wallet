@@ -55,3 +55,15 @@ This approach prevents one user from affecting others and provides better protec
 ## ✅ Authentication Setup (Clerk)
 
 Installed Clerk for Expo as instructed in their [official documentation](https://clerk.com/docs/quickstarts/expo)
+
+# Backend Deployment (Render)
+
+We deployed the backend using **Render**, pointing it to the `/backend` folder of the monorepo. The backend is set up as a Node.js service.
+
+We also added environment variables from the local `.env` file to the Render dashboard, including:
+
+```
+API_URL=https://react-native-wallet-g7l1.onrender.com/api/health
+```
+
+To keep the backend alive (since free Render instances sleep), we used the `cron` package (`npm i cron`) to create a scheduled task that sends a request to the backend every 14 minutes.
