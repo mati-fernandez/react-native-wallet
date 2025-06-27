@@ -24,8 +24,8 @@ export default function Page() {
       <SignedIn>
         <Text>Hello {user?.emailAddresses[0].emailAddress}</Text>
         <Text>Income: {summary.income}</Text>
-        <Text>Balance {summary.balance}</Text>
         <Text>Expenses {summary.expenses}</Text>
+        <Text>Balance {summary.balance}</Text>
         <SignOutButton />
       </SignedIn>
       <SignedOut>
