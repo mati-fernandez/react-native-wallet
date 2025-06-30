@@ -4,10 +4,12 @@ import { initDB } from './config/db.js';
 import transactionsRoute from './routes/transactionsRoute.js';
 import rateLimiter from './middleware/rateLimiter.js';
 import job from './config/cron.js';
+import cors from 'cors';
 
 dotenv.config();
 
 const app = express();
+app.use(cors());
 
 if (process.env.NODE_ENV === 'production') job.start();
 
