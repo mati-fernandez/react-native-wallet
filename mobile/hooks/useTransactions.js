@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { universalAlert } from '../../mobile/lib/utils';
+import { universalAlert } from '../lib/utils';
 import { API_URL } from '../constants/api';
 
 export const useTransactions = (userId) => {

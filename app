@@ -1,0 +1,1 @@
+C:/users/m/Desktop/react-native-wallet/mobile/app
