@@ -5,6 +5,7 @@ import { Slot } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 
 export default function RootLayout() {
+  console.log('env:', process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY);
   return (
     <ClerkProvider
       publishableKey={process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY}

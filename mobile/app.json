@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "wallet",
+    "name": "Wallet",
     "slug": "wallet",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/revenue-i2.png",
     "scheme": "wallet",
     "userInterfaceStyle": "automatic",
     "ios": {
