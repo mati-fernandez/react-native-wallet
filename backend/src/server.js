@@ -5,6 +5,7 @@ import transactionsRoute from './routes/transactionsRoute.js';
 import rateLimiter from './middleware/rateLimiter.js';
 import job from './config/cron.js';
 import cors from 'cors';
+import { Redis } from '@upstash/redis';
 
 dotenv.config();
 
@@ -30,6 +31,15 @@ app.get('/api/health', (req, res) => {
 });
 
 app.use('/api/transactions', transactionsRoute);
+
+app.get('/api/ping-redis', async (req, res) => {
+  try {
+    const pong = await Redis.fromEnv().ping();
+    res.json({ status: 'ok', redis: pong });
+  } catch (error) {
+    res.status(500).json({ status: 'error', message: error.message });
+  }
+});
 
 initDB().then(() => {
   app.listen(PORT, () => {
