@@ -3,7 +3,6 @@ import dotenv from 'dotenv';
 import { initDB } from './config/db.js';
 import transactionsRoute from './routes/transactionsRoute.js';
 import rateLimiter from './middleware/rateLimiter.js';
-import job from './config/cron.js';
 import cors from 'cors';
 import { Redis } from '@upstash/redis';
 
@@ -11,8 +10,6 @@ dotenv.config();
 
 const app = express();
 app.use(cors());
-
-if (process.env.NODE_ENV === 'production') job.start();
 
 // middleware
 app.use(rateLimiter);
