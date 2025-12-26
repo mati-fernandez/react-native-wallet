@@ -23,4 +23,31 @@ jobs:
           -H "Accept: application/json" \
           -H "Accept-Language: en-US,en;q=0.9" \
           -H "Cache-Control: no-cache" \
-          -H "Pragma: no-cache"
+          -H "Pragma: no-cache" 
+          
+      - name: GitHub Actions keepalive commit
+        run: |
+          FILE=".github/keepalive.txt"
+          NOW=$(date +%s)
+          LIMIT_DAYS=10
+          LIMIT_SECONDS=$((LIMIT_DAYS * 24 * 60 * 60))
+
+          if [ -f "$FILE" ]; then
+            LAST=$(git log -1 --format=%ct -- "$FILE")
+          else
+            LAST=0
+          fi
+
+          DIFF=$((NOW - LAST))
+
+          if [ "$DIFF" -ge "$LIMIT_SECONDS" ]; then
+            echo "Keepalive update: $(date -u)" > "$FILE"
+
+            git config user.name "github-actions"
+            git config user.email "github-actions@github.com"
+            git add "$FILE"
+            git commit -m "GHA WF KA - GitHub Actions WorkFlow Keep Alive"
+            git push
+          else
+            echo "Keepalive not needed yet"
+          fi
